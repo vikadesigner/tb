@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+<div class="wrap">
+    <h1>Дима, я дизайнер, почему я это понимаю как делать, а ты нет?!</h1>
+    <p>Это работает даже в сафари. И даже можно несколько картинок загрузить</p>
+    <form action="#" name="form" method="get">
+      <div class="file">
+        <div class="file__input" id="file__input">
+          <input class="file__input--file" id="customFile" type="file" multiple="multiple" name="files[]"/>
+          <label class="file__input--label" for="customFile" data-text-btn="Запихнуть">Пихай сюда картинку:</label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</body>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-file-upload/4.0.11/jquery.uploadfile.min.js"></script>
+</html>
+
+<style>
+html {
+  font-size: 16px;
+  background: #edeff0;
+  font-family: "Open Sans", sans-serif;
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+p {
+    color: #fff;
+}
+
+.wrap {
+  width: 500px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  background-color: #2e4261;
+  box-shadow: 0 1px 2px 0 #c9ced1;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.file {
+  position: relative;
+  max-width: 22.5rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+.file__input, .file__value {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-bottom: 0.875rem;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 0.9375rem 1.0625rem;
+}
+.file__input--file {
+  position: absolute;
+  opacity: 0;
+}
+.file__input--label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.file__input--label:after {
+  content: attr(data-text-btn);
+  border-radius: 3px;
+  background-color: #536480;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.18);
+  padding: 0.9375rem 1.0625rem;
+  margin: -0.9375rem -1.0625rem;
+  color: white;
+  cursor: pointer;
+}
+.file__value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+.file__value:hover:after {
+  color: white;
+}
+.file__value:after {
+  content: "X";
+  cursor: pointer;
+}
+.file__value:after:hover {
+  color: white;
+}
+.file__remove {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000;
+}
+
+.file__value img {
+    width: 100px;
+}
+</style>
+
+<script>
+   $(document).ready(function() {
+	 
+     // ------------  File upload BEGIN ------------
+     $('.file__input--file').on('change',function(event){
+         var files = event.target.files;
+         for (var i = 0; i < files.length; i++) {
+             var file = files[i];
+             $("<div class='file__value'> <img src='' id='image_"+ i +"'></img><div class='file__value--text'>" + file.name + "</div><div class='file__value--remove' data-id='" + file.name + "' ></div></div>").insertAfter('#file__input');
+
+             document.getElementById('image_'+i).src = window.URL.createObjectURL(file)
+         }	
+     });
+     
+     //Click to remove item
+     $('body').on('click', '.file__value', function() {
+         $(this).remove();
+     });
+     // ------------ File upload END ------------ 
+     
+     
+     
+ });	
+</script>
