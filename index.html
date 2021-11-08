@@ -124,25 +124,39 @@ p {
 
 <script>
    $(document).ready(function() {
-	 
-     // ------------  File upload BEGIN ------------
+    var filelist = new Array;
+
      $('.file__input--file').on('change',function(event){
          var files = event.target.files;
          for (var i = 0; i < files.length; i++) {
              var file = files[i];
              $("<div class='file__value'> <img src='' id='image_"+ i +"'></img><div class='file__value--text'>" + file.name + "</div><div class='file__value--remove' data-id='" + file.name + "' ></div></div>").insertAfter('#file__input');
-
+             filelist.push(file)
              document.getElementById('image_'+i).src = window.URL.createObjectURL(file)
+             console.log(filelist)
          }	
+         
+
+         
      });
      
-     //Click to remove item
      $('body').on('click', '.file__value', function() {
-         $(this).remove();
+        let removename = $(this).children(".file__value--remove").data("id")
+        let removefileindex
+        
+         for (let i = 0; i < filelist.length; i++) {
+             
+             if (filelist[i].name == removename) {
+                console.log(filelist[i].name)
+                removefileindex = i
+             }
+         }
+        filelist.splice(removefileindex, 1)
+         
+
+        console.log(filelist)
+        $(this).remove();
      });
-     // ------------ File upload END ------------ 
-     
-     
-     
+    
  });	
 </script>
